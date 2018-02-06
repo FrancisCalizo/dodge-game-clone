@@ -1,10 +1,6 @@
 var canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
-    
-    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+var gameOver = false;
 
 // Player Object
 var player = {
@@ -51,23 +47,10 @@ var player = {
       case this.x < 20: this.x = 20; break; 
       case this.x > 1080: this.x = 1080; break;
       case this.y < 10: this.y = 10; break;
-      case this.y > 600: this.y = 600; break;
+      case this.y > 560: this.y = 560; break;
     }
   }
 };
-
-function checkCollision(){
-  for(var i = 0; i < drivers.driversArr.length; i ++){
-    if (player.x < drivers.driversArr[i].x + 20 &&
-      player.x + 40 > drivers.driversArr[i].x &&
-      player.y < drivers.driversArr[i].y + 40 &&
-      20 + player.y > drivers.driversArr[i].y) {
-      // collision detected
-      console.log("you suck");
-      cancelAnimationFrame(updateCanvas);
-    }
-  }
-}
 
 // User Controls
 var keys = [];
@@ -82,7 +65,7 @@ document.addEventListener('keyup', function(e){
 var drivers = {
   spawnTopY: 0,
   spawnRate: 700,
-  spawnRateOfDescent: 0.50,
+  spawnRateOfDescent: 0.70,
   lastSpawn: -1,
   driversArr: [],
 
@@ -97,9 +80,22 @@ var drivers = {
   }
 }
 
+function checkCollision(){
+  for(var i = 0; i < drivers.driversArr.length; i ++){
+    if (player.x < drivers.driversArr[i].x + 20 &&
+      player.x + 40 > drivers.driversArr[i].x &&
+      player.y < drivers.driversArr[i].y + 40 &&
+      20 + player.y > drivers.driversArr[i].y) {
+      // collision detected
+      console.log("you lose");
+      gameOver = true;
+    }
+  }
+}
+
 function updateCanvas(){
-	requestAnimationFrame(updateCanvas);
-	ctx.clearRect(0, 0, 1100, 620);
+  requestAnimationFrame(updateCanvas);
+  ctx.clearRect(0, 0, 1100, 620);
   
   switch(true){
     //Player turning (Rotation)
@@ -110,7 +106,7 @@ function updateCanvas(){
   switch(true){
     //Accelerate Forward 
     case keys[38]: player.ax = Math.cos(player.rotation) * 0.07, 
-                   player.ay = Math.sin(player.rotation) * 0.07; break;
+                    player.ay = Math.sin(player.rotation) * 0.07; break;
     //player acceleration should be zero if no keys are pressed                   
     default: player.ax = player.ay = 0;
   }
@@ -131,8 +127,8 @@ function updateCanvas(){
     Math.floor(Math.random()*256)+")";
     ctx.fillRect(carSpawn.x, carSpawn.y, 20, 40);
     }
-	
-	player.updatePosition();
+  
+  player.updatePosition();
   player.drawPlayer();
   checkCollision();
 };

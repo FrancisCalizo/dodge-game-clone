@@ -4,7 +4,8 @@ body{
 
 #canvas{
   display: block;
-  background-color: rgba(255, 255, 255, 0.8);
-  margin: auto;
+  background-color: rgba(255, 255, 255, 0.6);
+  margin: 50px auto 10px;
   border: 1px solid black;
+  border-radius: 10px;
 }
