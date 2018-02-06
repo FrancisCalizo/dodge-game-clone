@@ -1,5 +1,10 @@
 var canvas = document.getElementById('canvas');
-		ctx = canvas.getContext('2d');
+    ctx = canvas.getContext('2d');
+    
+    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
 
 // Player Object
 var player = {
@@ -51,7 +56,20 @@ var player = {
   }
 };
 
-// User keypress
+function checkCollision(){
+  for(var i = 0; i < drivers.driversArr.length; i ++){
+    if (player.x < drivers.driversArr[i].x + 20 &&
+      player.x + 40 > drivers.driversArr[i].x &&
+      player.y < drivers.driversArr[i].y + 40 &&
+      20 + player.y > drivers.driversArr[i].y) {
+      // collision detected
+      console.log("you suck");
+      cancelAnimationFrame(updateCanvas);
+    }
+  }
+}
+
+// User Controls
 var keys = [];
 document.addEventListener('keydown', function(e){
 	keys[e.which] = true;
@@ -60,9 +78,10 @@ document.addEventListener('keyup', function(e){
 	keys[e.which] = false;
 });
 
+// Driver Object
 var drivers = {
-  spawnLineY: 0,
-  spawnRate: 1500,
+  spawnTopY: 0,
+  spawnRate: 700,
   spawnRateOfDescent: 0.50,
   lastSpawn: -1,
   driversArr: [],
@@ -72,7 +91,7 @@ var drivers = {
       // Set x to start on random x position within canvas width
       x: Math.random() * (canvas.width - 30),
       // Set y to start on the line where objects are spawned
-      y: drivers.spawnLineY
+      y: drivers.spawnTopY,
     }
     this.driversArr.push(driver);
   }
@@ -104,14 +123,18 @@ function updateCanvas(){
   }
 
   for (var i = 0; i < drivers.driversArr.length; i++) {
-    var object = drivers.driversArr[i];
-    object.y += drivers.spawnRateOfDescent;
-    ctx.fillStyle = "red";
-    ctx.fillRect(object.x, object.y, 20, 40);
+    var carSpawn = drivers.driversArr[i];
+    carSpawn.y += drivers.spawnRateOfDescent;
+    ctx.fillStyle = "rgb("+
+    Math.floor(Math.random()*256)+","+
+    Math.floor(Math.random()*256)+","+
+    Math.floor(Math.random()*256)+")";
+    ctx.fillRect(carSpawn.x, carSpawn.y, 20, 40);
     }
 	
 	player.updatePosition();
-	player.drawPlayer();
+  player.drawPlayer();
+  checkCollision();
 };
 
 updateCanvas();
