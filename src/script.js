@@ -1,23 +1,26 @@
 var canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
+var gameOver = false;  
+var timer = 0;
+var timeScore = setInterval(function(){timer++}, 10);
 
 // Player Object
 var player = {
-  x: 520,          // Player x-position
-  y: 300,          // Player y-position
-  vx: 0,           // Player x-velocity
-  vy: 0,           // Player y-velocity
-  ax: 0,           // Player x-acceleration
-  ay: 0,           // Player y-acceleration
-  rotation: 0,     // Player rotation
-  friction: .985,  // Friction applied to x/y velocities
+  x: canvas.width / 2.06,  // Player x-position
+  y: canvas.height/ 2,     // Player y-position
+  vx: 0,                   // Player x-velocity
+  vy: 0,                   // Player y-velocity
+  ax: 0,                   // Player x-acceleration
+  ay: 0,                   // Player y-acceleration
+  rotation: 0,             // Player rotation
+  friction: .985,          // Friction applied to x/y velocities
   
   // Draw player on canvas
 	drawPlayer: function(){
 		ctx.save();
 		ctx.translate(this.x, this.y);
     ctx.rotate(this.rotation);
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.fillRect(0, 0, 40, 20);    
     ctx.strokeStyle = "rgb(255, 0, 0)";
     ctx.strokeRect(0, 0, 41 , 21);
@@ -132,15 +135,31 @@ function checkCollision(){
       40 + player.y > drivers.driversArr[i].y) {
       // collision detected
       gameOver = true;
+      clearInterval(timeScore);
     }
   }
 }
 
-var gameOver = false;  
+document.addEventListener('keydown', function(e){
+  if(e.which === 82){
+    gameOver = false;
+  }
+});
+
+function gameOverText(){
+  ctx.font = '72px sans-serif';
+  ctx.fillStyle = "rgb(50, 50, 50)";
+  ctx.fillText("Final Score:", canvas.width/3.1, canvas.height/3);  
+}
 
 function updateCanvas(){
   requestAnimationFrame(updateCanvas);
   ctx.clearRect(0, 0, 1100, 620);
+  ctx.font = '180px sans-serif';
+  ctx.fillStyle = "rgb(50, 50, 50)";
+  ctx.fillText(timer, canvas.width/2.85, canvas.height/1.65);  
+  ctx.strokeStyle = "rgb(255, 255, 255)";
+ ctx.strokeText(timer, canvas.width/2.85 , canvas.height/1.65);
   
   switch(true){
     //Player turning (Rotation)
@@ -151,7 +170,8 @@ function updateCanvas(){
   switch(true){
     //Accelerate Forward 
     case keys[38]: player.ax = Math.cos(player.rotation) * 0.07, 
-                    player.ay = Math.sin(player.rotation) * 0.07; break;
+                   player.ay = Math.sin(player.rotation) * 0.07; 
+    break;
     //player acceleration should be zero if no keys are pressed                   
     default: player.ax = player.ay = 0;
   }
@@ -169,16 +189,16 @@ function updateCanvas(){
     ctx.fillStyle = carSpawn.color;
     ctx.fillRect(carSpawn.x, carSpawn.y, carSpawn.width , carSpawn.height);
     ctx.strokeStyle = "rgb(0, 0, 0)";
-    ctx.strokeRect(carSpawn.x, carSpawn.y, carSpawn.width + 1 , carSpawn.height + 1);
-
+    ctx.strokeRect(carSpawn.x, carSpawn.y, carSpawn.width , carSpawn.height);
     }
   
   player.updatePosition();
 
   if(!gameOver){
     player.drawPlayer();
+  } else{
+    gameOverText();
   }
-
   checkCollision();
 };
 
