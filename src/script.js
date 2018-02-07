@@ -130,9 +130,9 @@ var drivers = {
 function checkCollision(){
   for(var i = 0; i < drivers.driversArr.length; i ++){
     if (player.x < drivers.driversArr[i].x + drivers.driversArr[i].width &&
-      player.x + 20 > drivers.driversArr[i].x &&
+      player.x + 40 > drivers.driversArr[i].x &&
       player.y < drivers.driversArr[i].y + drivers.driversArr[i].height &&
-      40 + player.y > drivers.driversArr[i].y) {
+      20 + player.y > drivers.driversArr[i].y) {
       // collision detected
       gameOver = true;
       clearInterval(timeScore);
@@ -140,26 +140,26 @@ function checkCollision(){
   }
 }
 
-document.addEventListener('keydown', function(e){
-  if(e.which === 82){
-    gameOver = false;
-  }
-});
-
 function gameOverText(){
   ctx.font = '72px sans-serif';
+  ctx.textAlign="center"; 
   ctx.fillStyle = "rgb(50, 50, 50)";
-  ctx.fillText("Final Score:", canvas.width/3.1, canvas.height/3);  
+  ctx.fillText("Final Score:", canvas.width/2, canvas.height/3);  
+  // ctx.moveTo(canvas.width/2, canvas.height/1.5)
+  ctx.font = '36px sans-serif';
+  ctx.fillText("Press the spacebar to retry!", canvas.width/2, canvas.height/1.4);  
+
 }
 
 function updateCanvas(){
   requestAnimationFrame(updateCanvas);
   ctx.clearRect(0, 0, 1100, 620);
   ctx.font = '180px sans-serif';
+  ctx.textAlign="center"; 
   ctx.fillStyle = "rgb(50, 50, 50)";
-  ctx.fillText(timer, canvas.width/2.85, canvas.height/1.65);  
+  ctx.fillText(timer, canvas.width/2, canvas.height/1.65);  
   ctx.strokeStyle = "rgb(255, 255, 255)";
- ctx.strokeText(timer, canvas.width/2.85 , canvas.height/1.65);
+  ctx.strokeText(timer, canvas.width/2, canvas.height/1.65);
   
   switch(true){
     //Player turning (Rotation)
@@ -198,6 +198,11 @@ function updateCanvas(){
     player.drawPlayer();
   } else{
     gameOverText();
+    document.addEventListener('keydown', function(e){
+      if(e.which === 32){
+        window.location.reload(false); 
+      }
+    });
   }
   checkCollision();
 };
