@@ -145,7 +145,6 @@ function gameOverText(){
   ctx.textAlign="center"; 
   ctx.fillStyle = "rgb(50, 50, 50)";
   ctx.fillText("Final Score:", canvas.width/2, canvas.height/3);  
-  // ctx.moveTo(canvas.width/2, canvas.height/1.5)
   ctx.font = '36px sans-serif';
   ctx.fillText("Press the spacebar to retry!", canvas.width/2, canvas.height/1.4);  
 
