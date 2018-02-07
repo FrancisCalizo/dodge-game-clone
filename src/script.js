@@ -1,6 +1,5 @@
 var canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
-var gameOver = false;
 
 // Player Object
 var player = {
@@ -64,17 +63,60 @@ document.addEventListener('keyup', function(e){
 // Driver Object
 var drivers = {
   spawnTopY: 0,
-  spawnRate: 700,
-  spawnRateOfDescent: 0.70,
+  spawnBottomY: 580,
+  spawnRate: 350,
   lastSpawn: -1,
   driversArr: [],
 
   spawnDriver: function(){
+    var speed;
+    var length;
+    var spawnPoint;
+    var rand = Math.random() * 2;
+
+    if (rand < 0.4) {
+      speed = 0.5;
+      h = 60;
+      w = 45;
+      c = "rgb(168, 168, 168)"
+    } else if (rand < 0.9){
+      speed = 1;
+      h = 35;
+      w = 20;
+      c = "rgb(239, 212, 7)"
+    } else if (rand < 1.4){
+      speed = 1.5;
+      h = 25;
+      w = 10;
+      c = "rgb(73, 216, 41)";
+    } else if (rand < 1.85){
+      speed = 1;
+      h = 30;
+      w = 25;
+      c = "rgb(234, 51, 51)";
+    } else{
+      speed = .25;
+      h = 70;
+      w = 50;
+      c = "rgb(229, 39, 216)";
+    }
+
+    if(rand < 1.01){
+      speed *= -1;
+      spawnPoint = this.spawnBottomY;
+    } else{
+      spawnPoint = this.spawnTopY;
+    }
+
     var driver = {
+      height: h,
+      width: w,
+      color: c,
+      spawnRateOfDescent: speed,
       // Set x to start on random x position within canvas width
       x: Math.random() * (canvas.width - 30),
       // Set y to start on the line where objects are spawned
-      y: drivers.spawnTopY,
+      y: spawnPoint,
     }
     this.driversArr.push(driver);
   }
@@ -92,6 +134,8 @@ function checkCollision(){
     }
   }
 }
+
+var gameOver = false;
 
 function updateCanvas(){
   requestAnimationFrame(updateCanvas);
@@ -120,12 +164,12 @@ function updateCanvas(){
 
   for (var i = 0; i < drivers.driversArr.length; i++) {
     var carSpawn = drivers.driversArr[i];
-    carSpawn.y += drivers.spawnRateOfDescent;
-    ctx.fillStyle = "rgb("+
-    Math.floor(Math.random()*256)+","+
-    Math.floor(Math.random()*256)+","+
-    Math.floor(Math.random()*256)+")";
-    ctx.fillRect(carSpawn.x, carSpawn.y, 20, 40);
+    carSpawn.y += carSpawn.spawnRateOfDescent;
+    ctx.fillStyle = carSpawn.color;
+    ctx.fillRect(carSpawn.x, carSpawn.y, carSpawn.width , carSpawn.height);
+    ctx.strokeStyle = "rgb(0, 0, 0)";
+    ctx.strokeRect(carSpawn.x, carSpawn.y, carSpawn.width + 1 , carSpawn.height + 1);
+
     }
   
   player.updatePosition();
