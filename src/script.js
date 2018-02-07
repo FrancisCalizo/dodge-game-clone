@@ -18,7 +18,9 @@ var player = {
 		ctx.translate(this.x, this.y);
     ctx.rotate(this.rotation);
     ctx.fillStyle = "black";
-		ctx.fillRect(0, 0, 40, 20);
+    ctx.fillRect(0, 0, 40, 20);    
+    ctx.strokeStyle = "rgb(255, 0, 0)";
+    ctx.strokeRect(0, 0, 41 , 21);
 		ctx.restore();
   },
 
@@ -78,27 +80,27 @@ var drivers = {
       speed = 0.5;
       h = 60;
       w = 45;
-      c = "rgb(168, 168, 168)"
+      c = "rgb(25, 42, 150)"
     } else if (rand < 0.9){
       speed = 1;
       h = 35;
       w = 20;
-      c = "rgb(239, 212, 7)"
+      c = "rgb(255, 178, 71)"
     } else if (rand < 1.4){
       speed = 1.5;
       h = 25;
       w = 10;
-      c = "rgb(73, 216, 41)";
+      c = "rgb(255, 68, 230)";
     } else if (rand < 1.85){
       speed = 1;
       h = 30;
       w = 25;
-      c = "rgb(234, 51, 51)";
+      c = "rgb(32, 215, 247)";
     } else{
       speed = .25;
       h = 70;
       w = 50;
-      c = "rgb(229, 39, 216)";
+      c = "rgb(255, 255, 255)";
     }
 
     if(rand < 1.01){
