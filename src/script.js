@@ -124,18 +124,17 @@ var drivers = {
 
 function checkCollision(){
   for(var i = 0; i < drivers.driversArr.length; i ++){
-    if (player.x < drivers.driversArr[i].x + 20 &&
-      player.x + 40 > drivers.driversArr[i].x &&
-      player.y < drivers.driversArr[i].y + 40 &&
-      20 + player.y > drivers.driversArr[i].y) {
+    if (player.x < drivers.driversArr[i].x + drivers.driversArr[i].width &&
+      player.x + 20 > drivers.driversArr[i].x &&
+      player.y < drivers.driversArr[i].y + drivers.driversArr[i].height &&
+      40 + player.y > drivers.driversArr[i].y) {
       // collision detected
-      console.log("you lose");
       gameOver = true;
     }
   }
 }
 
-var gameOver = false;
+var gameOver = false;  
 
 function updateCanvas(){
   requestAnimationFrame(updateCanvas);
@@ -173,7 +172,11 @@ function updateCanvas(){
     }
   
   player.updatePosition();
-  player.drawPlayer();
+
+  if(!gameOver){
+    player.drawPlayer();
+  }
+
   checkCollision();
 };
 
