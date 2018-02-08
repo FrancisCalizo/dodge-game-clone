@@ -1,3 +1,12 @@
-Module 1 game project for Ironhack's 9 week coding bootcamp
+Module 1 "Game-Project" for Ironhack's 9-week coding bootcamp
+
+This game (Drifter 305) is based on the classic "dodge" and "Squares 2" flash game.
+The objective is to drive avoid the incoming cars that come from the top and bottom of 
+the canvas. Score is determined by how long you can avoid being hit by an incoming car.
+
+Technologies:
+- HTML (Canvas)
+- CSS (Bootstrap)
+- Vanilla Javascript
 
 Play game: https://franciscalizo.github.io/dodge-game-clone/
