@@ -1,4 +1,4 @@
-body{
+.game-html{
   background-image: url("../Images/viceBG.png");
 }
 
@@ -8,4 +8,58 @@ body{
   margin: 50px auto 10px;
   border: 1px solid black;
   border-radius: 10px;
+}
+
+.index-html{
+  background-image: url("../Images/carBG.jpg");
+  background-size: cover;
+}
+
+.instructions{
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  color: white;
+  font-size: 28px;
+}
+
+.instructions h3{
+  font-size: 28px;
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: underline; 
+}
+
+.row{
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 80%;
+  height: 500px;
+  margin: 10% auto;
+  border-radius: 10%;
+}
+
+#title{
+  font-family: 'Lobster', cursive;
+  font-size: 72px;
+  color:turquoise;
+  text-decoration: underline;
+}
+
+#ready{
+  font-family: 'Lobster', cursive;
+  font-size: 60px;
+  color: hotpink;
+  text-decoration: underline;
+  margin-top:100px;
+}
+
+.btn-success{
+  display: block;
+  width: 200px;
+  font-size: 32px;
+  margin: 50px 75px;
+}
+
+#play{
+  text-decoration: none;
+  color: white;
 }
