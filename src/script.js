@@ -1,8 +1,21 @@
 var canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
 var gameOver = false;  
-var timer = 0;
-var timeScore = setInterval(function(){timer++}, 10);
+var score = 0;
+var timeScore = setInterval(function(){score++}, 10);
+var backgroundMusic;
+backgroundMusic = new Audio("sound/backgroundMusic.mp3");
+backgroundMusic.volume= 1;
+var crash;
+crash = new Audio ("sound/crash.mp3");
+crash.volume=.2;
+var honk;
+honk = new Audio("sound/honk.mp3")
+honk.volume= 0.1;
+
+var honkHorn = setInterval(function(){
+  honk.play();
+},7000);
 
 // Player Object
 var player = {
@@ -128,6 +141,7 @@ var drivers = {
 }
 
 function checkCollision(){
+  crashPlay = 0;
   for(var i = 0; i < drivers.driversArr.length; i ++){
     if (player.x < drivers.driversArr[i].x + drivers.driversArr[i].width &&
       player.x + 40 > drivers.driversArr[i].x &&
@@ -136,6 +150,8 @@ function checkCollision(){
       // collision detected
       gameOver = true;
       clearInterval(timeScore);
+      clearInterval(honkHorn);
+      crash.play();
     }
   }
 }
@@ -150,14 +166,15 @@ function gameOverText(){
 }
 
 function updateCanvas(){
+  backgroundMusic.play();
   requestAnimationFrame(updateCanvas);
   ctx.clearRect(0, 0, 1100, 620);
   ctx.font = '180px sans-serif';
   ctx.textAlign="center"; 
   ctx.fillStyle = "rgb(50, 50, 50)";
-  ctx.fillText(timer, canvas.width/2, canvas.height/1.65);  
+  ctx.fillText(score, canvas.width/2, canvas.height/1.65);  
   ctx.strokeStyle = "rgb(255, 255, 255)";
-  ctx.strokeText(timer, canvas.width/2, canvas.height/1.65);
+  ctx.strokeText(score, canvas.width/2, canvas.height/1.65);
   
   switch(true){
     //Player turning (Rotation)
@@ -196,6 +213,7 @@ function updateCanvas(){
     player.drawPlayer();
   } else{
     gameOverText();
+    backgroundMusic.pause()
     document.addEventListener('keydown', function(e){
       if(e.which === 32){
         window.location.reload(false); 
@@ -204,5 +222,5 @@ function updateCanvas(){
   }
   checkCollision();
 };
-
+ 
 updateCanvas();

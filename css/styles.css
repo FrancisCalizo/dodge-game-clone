@@ -46,7 +46,8 @@
 
 #ready{
   font-family: 'Lobster', cursive;
-  font-size: 60px;
+  text-align: center;
+  font-size: 64px;
   color: hotpink;
   text-decoration: underline;
   margin-top:100px;
@@ -56,7 +57,7 @@
   display: block;
   width: 200px;
   font-size: 32px;
-  margin: 50px 75px;
+  margin: 70px auto;
 }
 
 #play{
