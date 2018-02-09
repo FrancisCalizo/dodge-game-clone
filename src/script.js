@@ -169,7 +169,7 @@ var drivers = {
 function checkCollision(){
     for(var i = 0; i < drivers.driversArr.length; i ++){
     if (player.x < drivers.driversArr[i].x + drivers.driversArr[i].width &&
-      player.x + 40 > drivers.driversArr[i].x &&
+      player.x + 30 > drivers.driversArr[i].x &&
       player.y < drivers.driversArr[i].y + drivers.driversArr[i].height &&
       20 + player.y > drivers.driversArr[i].y) {
       // collision detected, game is over
