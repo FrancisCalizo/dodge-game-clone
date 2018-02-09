@@ -11,7 +11,7 @@ var timeScore = setInterval(function(){score++}, 10);
 var backgroundMusic = new Audio("sound/backgroundMusic.mp3");
     backgroundMusic.volume= 1;
 var crash = new Audio ("sound/crash.mp3");
-    crash.volume=.2;
+    crash.volume=.1;
 var honk = new Audio("sound/honk.mp3")
     honk.volume= 0.1;
 // Honk horn during game every 7 seconds
@@ -19,6 +19,18 @@ var honkHorn = setInterval(function(){honk.play();},7000);
 // Declare player as batmobile
 var carSprite = new Image();
 carSprite.src = "Images/batmobile.png";
+// Drivers as sprites
+var ambulance = new Image();
+ambulance.src = "Images/ambulence.png";
+var audi = new Image();
+audi.src = "Images/Audi.png";
+var police = new Image();
+police.src = "Images/Police.png"
+var taxi = new Image();
+taxi.src = "Images/taxi.png"
+var truck = new Image();
+truck.src = "Images/truck.png"
+
 
 
 // Player Object
@@ -85,42 +97,47 @@ document.addEventListener('keyup', function(e){
 var drivers = {
   spawnTopY: 0,       // Spawnpoint for cars moving down
   spawnBottomY: 580,  // Spawnpoint for cars moving up
-  spawnRate: 350,     // Rate at which new cars spawn
+  spawnRate: 800,     // Rate at which new cars spawn
   lastSpawn: -1,      // Used in formula to determine if enough time passed to spawn new car
   driversArr: [],     // Array that will store all drivers spawned
 
   // Function to spawn random drivers
   spawnDriver: function(){
     // Define characteristics of cars 
-    var speed, h, w, c, spawnPoint;
+    var speed, h, w, c, spawnPoint, sprite;
     // Spawned driver type picked at random
     var rand = Math.random() * 2;
     // 5 "types" of drivers that spawn
     if (rand < 0.4) {
       speed = 0.5;
-      h = 60;
-      w = 45;
-      c = "rgb(25, 42, 150)"
+      h = 70;
+      w = 60;
+      c = "rgb(25, 42, 150)";
+      sp = taxi; 
     } else if (rand < 0.9){
       speed = 1;
-      h = 35;
-      w = 20;
-      c = "rgb(255, 178, 71)"
+      h = 80;
+      w = 80;
+      c = "rgb(255, 178, 71)";
+      sp = truck; 
     } else if (rand < 1.4){
       speed = 1.5;
-      h = 25;
-      w = 10;
-      c = "rgb(255, 68, 230)";
+      h = 70;
+      w = 60;
+      c = "rgb(255, 68, 230)";;
+      sp = police; 
     } else if (rand < 1.85){
       speed = 1;
-      h = 30;
-      w = 25;
-      c = "rgb(32, 215, 247)";
+      h = 70;
+      w = 60;
+      c = "rgb(32, 215, 247)";;
+      sp = audi; 
     } else{
       speed = .25;
-      h = 70;
-      w = 50;
-      c = "rgb(255, 255, 255)";
+      h = 100;
+      w = 120;
+      c = "rgb(255, 255, 255)";;
+      sp = ambulance; 
     }
     // Determine if car spawns from top or bottom
     if(rand < 1.01){
@@ -140,20 +157,22 @@ var drivers = {
       // Set x to start on random x position within canvas width
       x: Math.random() * (canvas.width - 30),
       // Set y to start on the line where objects are spawned
-      y: spawnPoint
+      y: spawnPoint,
+      // Set sprite image
+      sprite: sp
     }
     // Push to an Array to store drivers
     this.driversArr.push(driver);
   }
 }
 
-// Check player colliision with other drivers
+// Check player collision with other drivers
 function checkCollision(){
     for(var i = 0; i < drivers.driversArr.length; i ++){
     if (player.x < drivers.driversArr[i].x + drivers.driversArr[i].width &&
       player.x + 40 > drivers.driversArr[i].x &&
       player.y < drivers.driversArr[i].y + drivers.driversArr[i].height &&
-      20 + player.y > drivers.driversArr[i].y) {
+      40 + player.y > drivers.driversArr[i].y) {
       // collision detected, game is over
       gameOver = true;
       clearInterval(timeScore); // Stop player score from incrementing 
@@ -162,6 +181,7 @@ function checkCollision(){
     }
   }
 }
+
 //Display final score & try again when collision occurs
 function gameOverText(){
   ctx.font = '72px sans-serif';
@@ -193,8 +213,8 @@ function updateCanvas(){
 
   switch(true){
     //Accelerate Forward with regard to player rotation
-    case keys[38]: player.ax = Math.cos(player.rotation) * 0.07, 
-                   player.ay = Math.sin(player.rotation) * 0.07; 
+    case keys[38]: player.ax = Math.cos(player.rotation) * 0.11, 
+                   player.ay = Math.sin(player.rotation) * 0.11; 
     break;
     //player acceleration should be zero if no keys are pressed                   
     default: player.ax = player.ay = 0;
@@ -214,9 +234,9 @@ function updateCanvas(){
     var carSpawn = drivers.driversArr[i];
     carSpawn.y += carSpawn.spawnRateOfDescent;
     ctx.fillStyle = carSpawn.color;
-    ctx.fillRect(carSpawn.x, carSpawn.y, carSpawn.width , carSpawn.height);
-    ctx.strokeStyle = "rgb(0, 0, 0)";
-    ctx.strokeRect(carSpawn.x, carSpawn.y, carSpawn.width , carSpawn.height);
+    ctx.drawImage(carSpawn.sprite, carSpawn.x, carSpawn.y, carSpawn.width , carSpawn.height);
+    // ctx.strokeStyle = "rgb(0, 0, 0)";
+    // ctx.strokeRect(carSpawn.x, carSpawn.y, carSpawn.width , carSpawn.height);
     }
   // Update player position 
   player.updatePosition();

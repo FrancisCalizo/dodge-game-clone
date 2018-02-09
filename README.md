@@ -13,6 +13,5 @@ Technologies:
 - CSS (Bootstrap)
 - Vanilla Javascript
 
-<p align="center">
-Play game: https://franciscalizo.github.io/dodge-game-clone/
-</p>
+<strong>Play game: https://franciscalizo.github.io/dodge-game-clone/</strong>
+
