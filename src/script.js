@@ -40,7 +40,7 @@ var player = {
   ax: 0,                   // Player x-acceleration
   ay: 0,                   // Player y-acceleration
   rotation: 0,             // Player rotation
-  friction: .985,          // Friction applied to x/y velocities
+  friction: .98,          // Friction applied to x/y velocities
   
   // Draw player on canvas
 	drawPlayer: function(){
