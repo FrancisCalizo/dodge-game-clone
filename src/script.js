@@ -31,8 +31,6 @@ taxi.src = "Images/taxi.png"
 var truck = new Image();
 truck.src = "Images/truck.png"
 
-
-
 // Player Object
 var player = {
   x: canvas.width / 2.06,  // Player x-position
@@ -48,10 +46,11 @@ var player = {
 	drawPlayer: function(){
     ctx.save();
     // Aid in turning player sprite
-    ctx.translate(this.x, this.y);
+    ctx.translate(this.x + 30, this.y + 15);
     // Aid in turning player sprite
     ctx.rotate(this.rotation);
-    ctx.drawImage(carSprite, 0, 0, 60, 30);
+    ctx.drawImage(carSprite, -30, -15, 60, 30);
+    ctx.stroke();
 		ctx.restore();
   },
 
@@ -172,7 +171,7 @@ function checkCollision(){
     if (player.x < drivers.driversArr[i].x + drivers.driversArr[i].width &&
       player.x + 40 > drivers.driversArr[i].x &&
       player.y < drivers.driversArr[i].y + drivers.driversArr[i].height &&
-      40 + player.y > drivers.driversArr[i].y) {
+      20 + player.y > drivers.driversArr[i].y) {
       // collision detected, game is over
       gameOver = true;
       clearInterval(timeScore); // Stop player score from incrementing 
