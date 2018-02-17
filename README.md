@@ -8,10 +8,17 @@ The objective is to drive & avoid the incoming cars that come from the top and b
 the canvas. The score is determined by how long you can avoid being hit by an incoming car.
 </p>
 
+<p>
+  Controls:
+  "Up" key: Accelerate forward
+  "Left" key: Turn left
+  "Right" key: Turn right
+ </p>
+
 Technologies:
 - HTML (Canvas)
 - CSS (Bootstrap)
 - Vanilla Javascript
 
-<strong>Play game: https://franciscalizo.github.io/dodge-game-clone/</strong>
+<strong>Play it here!: https://franciscalizo.github.io/dodge-game-clone/</strong>
 
