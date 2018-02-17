@@ -9,7 +9,7 @@ the canvas. The score is determined by how long you can avoid being hit by an in
 </p>
 
 
-  Controls:
+  Controls:<br>
   "Up" key: Accelerate forward<br>
   "Left" key: Turn left<br>
   "Right" key: Turn right<br>
