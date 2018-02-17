@@ -8,12 +8,12 @@ The objective is to drive & avoid the incoming cars that come from the top and b
 the canvas. The score is determined by how long you can avoid being hit by an incoming car.
 </p>
 
-<p>
+
   Controls:
-  "Up" key: Accelerate forward
+  "Up" key: Accelerate forward 
   "Left" key: Turn left
   "Right" key: Turn right
- </p>
+
 
 Technologies:
 - HTML (Canvas)
