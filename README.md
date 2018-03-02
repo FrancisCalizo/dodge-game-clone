@@ -2,7 +2,7 @@
 
 <p align="center">
 <strong>Play it here!: https://franciscalizo.github.io/dodge-game-clone/</strong> <br><br>
-Module 1 "Game-Project" for Ironhack's 9-week coding bootcamp.
+Module 1 "Game-Project" for Ironhack's 9-week coding bootcamp, created in 5 days.<br>
 
 This game (Drifter 305) is based on the classic "dodge" and "Squares 2" flash game.
 The objective is to drive & avoid the incoming cars that come from the top and bottom of 
