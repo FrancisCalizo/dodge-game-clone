@@ -1,7 +1,7 @@
 <h1 align="center">Drifter 305</h1>
 
 <p align="center">
-<strong>Play it here!: https://franciscalizo.github.io/dodge-game-clone/</strong>
+<strong>Play it here!: https://franciscalizo.github.io/dodge-game-clone/</strong> <br><br>
 Module 1 "Game-Project" for Ironhack's 9-week coding bootcamp.
 
 This game (Drifter 305) is based on the classic "dodge" and "Squares 2" flash game.
