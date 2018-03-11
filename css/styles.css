@@ -1,5 +1,6 @@
 .game-html{
   background-image: url("../Images/viceBG.png");
+  background-size: cover;
 }
 
 #canvas{
