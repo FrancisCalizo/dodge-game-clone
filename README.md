@@ -21,4 +21,10 @@ Technologies:
 - CSS (Bootstrap)
 - Vanilla Javascript
 
+<hr>
+<h1> To be fixed </h1>
+<ul>
+  <li>Collision dynamics should be more accurate
+</ul>
+
 
