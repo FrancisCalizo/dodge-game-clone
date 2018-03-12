@@ -43,7 +43,7 @@ var player = {
   friction: .98,          // Friction applied to x/y velocities
   
   // Draw player on canvas
-	drawPlayer: function(){
+  drawPlayer: function(){
     ctx.save();
     // Aid in turning player sprite
     ctx.translate(this.x + 30, this.y + 15);
